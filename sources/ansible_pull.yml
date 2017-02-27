@@ -1,0 +1,27 @@
+#!/bin/bash
+# Get this script as the AWS user-data for a fresh CentOS AMI
+# It will be run on startup, and logs to /var/log/cloud-init.log
+cat <<EOF > /etc/apt/sources.list.d/backport.list
+deb http://ftp.debian.org/debian jessie-backports main
+EOF
+apt-get update
+apt-get -y install ansible -t jessie-backports
+apt-get -y install git
+mkdir -p /home/debian/.ssh
+cat <<EOF > /home/debian/.ssh/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+...
+-----END RSA PRIVATE KEY-----
+EOF
+chmod go-rw /home/debian/.ssh/id_rsa
+cat <<EOF > /etc/boto.cfg
+[Credentials]
+aws_access_key_id = ABC123
+aws_secret_access_key = ABC123ABC123
+EOF
+mkdir -p /usr/local/mbst
+ansible-pull -C master \
+    -d /usr/local/mbst/ansible \
+    -U git@gitlab.com:account/repo.git \
+    --key-file /home/centos/.ssh/id_rsa \
+    --accept-host-key --full

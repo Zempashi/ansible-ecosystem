@@ -1,0 +1,125 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+%\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{tikz}
+\usetikzlibrary{arrows,calc,intersections,through,decorations.pathmorphing,backgrounds,positioning,fit}
+\usepackage[T1]{fontenc}
+\usepackage{xcolor}
+\usepackage{transparent}
+\usepackage{fancyvrb}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{ulem}
+\usepackage{hyperref}
+\usetheme{Madrid}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>
+      \frametitle{Syllabus}
+      {\scriptsize\tableofcontents[currentsection,hideothersubsections]
+      }
+    \end{frame}
+}
+
+%\fvset{commandchars=\\\{\}}
+
+\title{Ansible ecosystem}
+\author{Julien Girardin}
+\date{\today}
+
+\titlegraphic{
+    \includegraphics[width=0.06\textwidth]{images/ansible_badge.png}
+    \hspace{0.1cm}
+    \includegraphics[width=0.3\textwidth]{images/ansible.png}
+}
+
+\begin{document}
+
+\maketitle{}
+
+%\begin{frame}
+%    \begin{exampleblock}{Versions disclaimer}
+%        Should work on ansible >= 2.0
+%
+%        (Special mentions if not applicable)
+%    \end{exampleblock}
+%\end{frame}
+
+\section{Ansible package}
+
+\begin{frame}
+    \begin{itemize}
+        \item {\bf ansible} Run a single command on distant hosts. \\
+            Usefull tasks: \textit{ping, command, service, file, copy}
+        \item {\bf ansible-playbook} Run playbook file on distant hosts \\
+             The real power of ansible !
+        \item {\bf ansible-pull} Run a playbook against the local machine \\
+        \item {\bf ansible-galaxy} Install roles from remote location. \\
+            sources: \textit{github, http, tar}
+        \item {\bf ansible-vault} Encrypt source file.
+            Commit password encrypted by a symmetric master key
+        \item {\bf \color{gray} ansible-container \textit{- beta -}} Build docker container
+    \end{itemize}
+\end{frame}
+
+\subsection{ansible cli}
+
+\begin{frame}[fragile]
+    \frametitle{ansible cli}
+    \footnotesize{
+        \begin{minted}{shell}
+$ export ANSIBLE_HOSTS=/etc/ansible/ec2.py
+        \end{minted}
+        \begin{minted}{shell}
+$ export EC2_INI_PATH=/etc/ansible/ec2.ini
+        \end{minted}
+        \begin{minted}{shell}
+$ ansible -m ping tag_ansible_slaves
+10.1.2.193 | success >> {
+    "changed": false,
+    "ping": "pong"
+}
+10.1.2.136 | success >> {
+    "changed": false,
+    "ping": "pong"
+}
+10.1.2.137 | success >> {
+    "changed": false,
+    "ping": "pong"
+}
+        \end{minted}
+    }
+\end{frame}
+
+\subsection{ansible-playbook}
+
+\begin{frame}
+    \frametitle{ansible-playbook}
+
+\end{frame}
+
+\subsection{ansible-pull}
+
+\begin{frame}[fragile]
+    \frametitle{ansible-pull}
+    \tiny{
+        \inputminted{shell}{sources/ansible_pull.yml}
+    }
+\end{frame}
+
+\subsection{ansible-galaxy}
+
+\begin{frame}
+    \frametitle{ansible-galaxy}
+
+\end{frame}
+
+\end{document}
+
+% vim: set tabstop=2:
