@@ -97,13 +97,6 @@ $ ansible -m ping tag_ansible_slaves
     }
 \end{frame}
 
-\subsection{ansible-playbook}
-
-\begin{frame}
-    \frametitle{ansible-playbook}
-
-\end{frame}
-
 \subsection{ansible-pull}
 
 \begin{frame}[fragile]
@@ -115,9 +108,97 @@ $ ansible -m ping tag_ansible_slaves
 
 \subsection{ansible-galaxy}
 
-\begin{frame}
+\begin{frame}[fragile]
     \frametitle{ansible-galaxy}
+    \begin{columns}
+    \column{0.4\textwidth}
+        \begin{block}{without galaxy}
+        \footnotesize{
+            \begin{Verbatim}[tabsize=4]
+site.yml
+subsite1.yml
+subsite2.yml
+groups_vars/
+    prod/
+        system.yml
+        password.yml
+    test/
+        system.yml
+        password.yml
+host_vars/
+roles/
+    roles1/
+    roles2/
+    roles3/
+    roles4/
+        \end{Verbatim}
+        }
+         \end{block}
+    \column{0.1\textwidth}
+    \centering{VS}
+    \column{0.4\textwidth}
+        \begin{block}{with galaxy}
+        \footnotesize{
+            \begin{Verbatim}[tabsize=4]
+site.yml
+subsite1.yml
+subsite2.yml
+groups_vars/
+    prod/
+        system.yml
+        password.yml
+    test/
+        system.yml
+        password.yml
+host_vars/
+requirement.yml
+roles/
+            \end{Verbatim}
+        }
+    \end{block}
+    \begin{minted}[breaklines]{shell}
+$ ansible-galaxy install -r requirements.yml -p roles
+    \end{minted}
+    \end{columns}
+\end{frame}
 
+\subsection{ansible-vault}
+
+\begin{frame}[fragile]
+    \frametitle{ansible-vault}
+    \begin{minted}{shell}
+$ ansible-vault create group_vars/prod/password.yml
+Vault password:
+# $EDITOR open
+$ git add group_vars/prod/password.yml
+$ git commit -m 'Add prod password into ansible-vault'
+
+$ ansible-playbook site.yml --ask-vault-pass
+Vault password:
+    \end{minted}
+\end{frame}
+
+\section{git}
+
+\begin{frame}
+
+\end{frame}
+
+
+\section{jenkins}
+
+\begin{frame}
+    \frametitle{jenkins}
+    \footnotesize{
+    \begin{itemize}
+        \item \href{https://wiki.jenkins-ci.org/display/JENKINS/Ansible+Plugin}
+                    {https://wiki.jenkins-ci.org/display/JENKINS/Ansible+Plugin}
+        \item \href{https://wiki.jenkins-ci.org/display/JENKINS/SSH+Agent+Plugin}
+                    {https://wiki.jenkins-ci.org/display/JENKINS/SSH+Agent+Plugin}
+        \item \href{https://wiki.jenkins-ci.org/display/JENKINS/Promoted+Builds+Plugin}
+                    {https://wiki.jenkins-ci.org/display/JENKINS/Promoted+Builds+Plugin}
+    \end{itemize}
+    }
 \end{frame}
 
 \end{document}
