@@ -181,6 +181,62 @@ Vault password:
 \section{git}
 
 \begin{frame}
+    \frametitle{infrastructure as code}
+    \begin{block}{}
+        Freeze everything in git: reproductabilty is magic
+    \end{block}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Two philosophies}
+    \begin{columns}
+        \column{0.4\textwidth}
+        \begin{block}{Big repo: Google}
+
+        Everything in one repo
+
+        \textbf {pros:} \\
+            \begin{itemize}
+                \item Clear commit, only change text
+                \item Easier tooling (dev: git grep, CI)
+            \end{itemize}
+        \textbf {cons:} \\
+            \begin{itemize}
+                \item Working with contractor
+            \end{itemize}
+        \end{block}
+
+        \column{0.4\textwidth}
+        \begin{block}{Multiple small repositories}
+
+        \textbf {pros:} \\
+            \begin{itemize}
+                \item Sharing with other
+                \item Abandon legacy
+            \end{itemize}
+        \textbf {cons:} \\
+            \begin{itemize}
+                \item Complex tooling
+                \item Manage pointers on other project
+            \end{itemize}
+        \end{block}
+
+    \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+    \begin{Verbatim}
+code/
+    lead -> git submodule
+    techno -> git submodule
+group_vars/
+host_vars/
+roles/
+    common/
+    mongodb -> git submodule
+    lead -> symlink in code/lead/roles/ansible_lead
+playbook.yml
+    \end{Verbatim}
 
 \end{frame}
 
@@ -199,6 +255,13 @@ Vault password:
                     {https://wiki.jenkins-ci.org/display/JENKINS/Promoted+Builds+Plugin}
     \end{itemize}
     }
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{behave ansible}
+    https://github.com/Zempashi/behave-ansible
+
 \end{frame}
 
 \end{document}
